@@ -1,4 +1,4 @@
-# shadowmap/scanner.py
+
 
 import nmap
 
