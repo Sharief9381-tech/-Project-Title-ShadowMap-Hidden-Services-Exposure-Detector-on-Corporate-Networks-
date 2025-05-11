@@ -1,4 +1,4 @@
-# shadowmap/detector.py
+
 
 import shodan
 from .config import SHODAN_API_KEY
