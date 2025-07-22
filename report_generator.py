@@ -1,5 +1,3 @@
-# shadowmap
-
 import json
 from .config import OUTPUT_FILE
 
