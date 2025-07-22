@@ -1,4 +1,2 @@
-
-
-SHODAN_API_KEY = "YOUR_SHODAN_API_KEY"  # Optional, leave blank if not using Shodan
+SHODAN_API_KEY = ""  # or put your actual key here like: "abc123xyz..."
 OUTPUT_FILE = "report.json"
