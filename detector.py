@@ -1,5 +1,3 @@
-
-
 import shodan
 from .config import SHODAN_API_KEY
 
@@ -8,7 +6,7 @@ def detect_hidden_services(scan_data):
 
     if not SHODAN_API_KEY:
         print("[!] Shodan API key not set. Skipping passive detection.")
-        return scan_data  # No passive comparison
+        return scan_data  # Skip if API key is not provided
 
     api = shodan.Shodan(SHODAN_API_KEY)
 
@@ -18,8 +16,6 @@ def detect_hidden_services(scan_data):
             shodan_data = api.host(ip)
             exposed_ports = [item['port'] for item in shodan_data['data']]
             current_ports = [p['port'] for p in host_data['ports']]
-
-            # Detect ports that are NOT visible on Shodan = "shadow"
             hidden_ports = list(set(current_ports) - set(exposed_ports))
 
             if hidden_ports:
