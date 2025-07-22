@@ -1,6 +1,6 @@
-
-
 import nmap
+import os
+os.environ["PATH"] += os.pathsep + r"C:\Program Files (x86)\Nmap"
 
 def scan_network(network_range):
     scanner = nmap.PortScanner()
