@@ -1,21 +1,15 @@
-import nmap
-import os
-os.environ["PATH"] += os.pathsep + r"C:\Program Files (x86)\Nmap"
+import socket
 
-def scan_network(network_range):
-    scanner = nmap.PortScanner()
-    print(f"[+] Scanning network: {network_range}")
-    scanner.scan(hosts=network_range, arguments='-sS -T4')
-    results = []
-
-    for host in scanner.all_hosts():
-        if scanner[host].state() == 'up':
-            open_ports = []
-            for proto in scanner[host].all_protocols():
-                ports = scanner[host][proto].keys()
-                for port in ports:
-                    service = scanner[host][proto][port]['name']
-                    open_ports.append({'port': port, 'service': service})
-            results.append({'ip': host, 'ports': open_ports})
-
-    return results
+def scan_network(ip_range, ports):
+    open_ports = []
+    port_list = list(map(int, ports.split('-')))
+    for port in range(port_list[0], port_list[1] + 1):
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.settimeout(0.5)
+            if s.connect_ex((ip_range, port)) == 0:
+                open_ports.append((ip_range, port))
+            s.close()
+        except:
+            continue
+    return open_ports
